@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Monster Slayer</title>
+        <link rel="stylesheet" href="css/foundation.min.css">
+        <link rel="stylesheet" href="css/app.css">
+    </head>
+    <body>
+        <div id="app">
+            <!-- /////////////////////////// You And MONSTER /////////////////////////// -->
+            <section class="row">
+                <!-- +++++++++++++++++++++++ You ++++++++++++++++++++++ -->
+                <div class="small-6 columns">
+                    <h1 class="text-center">YOU</h1>
+                    <div class="healthbar">
+                        <div    class="healthbar text-center" 
+                                style="background-color: green; margin: 0; color: white;"
+                                v-bind:style="{ width : playerHealth + '%' }">
+                            {{ playerHealth }}
+                        </div>
+                    </div>
+                </div>
+                <!-- +++++++++++++++++++++ MONSTER ++++++++++++++++++++ -->
+                <div class="small-6 columns">
+                    <h1 class="text-center">MONSTER</h1>
+                    <div class="healthbar">
+                        <div    class="healthbar text-center" 
+                                style="background-color: green; margin: 0; color: white;"
+                                v-bind:style="{ width : monsterHealth + '%' }">
+                            {{ monsterHealth }}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- ////////////////////////////////////////// You And MONSTER ////////////////////////////////////////// -->
+            <!-- if( gameIsRunning == true ) then appear "START NEW GAME" button -->
+            <section class="row controls" v-if="!gameIsRunning">
+                <!-- ++++++++++++++++++ START NEW GAME ++++++++++++++++++ -->
+                <div class="small-12 columns">
+                    <button id="start-game" @click="startGameFunc">START NEW GAME</button>
+                </div>
+            </section>
+            <!-- if( gameIsRunning == false ) then Appear "ATTACK","SPECIAL ATTACK","HEAL","GIVE UP" button -->
+            <section class="row controls"  v-else>
+                <div class="small-12 columns">
+                    <button id="attack" @click="attackFunc()">ATTACK</button>
+                    <button id="special-attack" @click="specialAttack()">SPECIAL ATTACK</button>
+                    <button id="heal" @click="healFunc()">HEAL</button>
+                    <button id="give-up" @click="giveUpFunc()">GIVE UP</button>
+                </div>
+            </section>
+            <!-- ////////////////////////////////////////// Logs ////////////////////////////////////////// -->
+            <!-- بتعها اكبر من ال 0 length ال turnsاللي هيه ال logsاللي بخزن فيها ال array يعني ال logs هذا السكشن هيظهر في حالة ان فيه-->
+            <section class="row log" v-if=" turns.length > 0 ">
+                <div class="small-12 columns">
+                    <ul>
+                        <li v-for="turnVar in turns"
+                            :class="{'monster-turn' : turnVar.isPlayer , 'player-turn' : !turnVar.isPlayer}">
+                            {{ turnVar.text }}
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+        <script src="js/vueJsDevelopmentTool.js"></script>
+        <script src="js/myScript.js"></script>
+    </body>
+</html>
